@@ -12,8 +12,18 @@ interface Motorcycle {
   price: number;
   category: string;
   power: string;
+  powerNum: number;
   engine: string;
+  engineNum: number;
   image: string;
+  maxSpeed: number;
+  acceleration: number;
+  weight: number;
+  fuelTank: number;
+  consumption: number;
+  torque: number;
+  gears: number;
+  wheelbase: number;
 }
 
 interface ConfigOption {
@@ -26,6 +36,8 @@ interface ConfigOption {
 const Index = () => {
   const [selectedBike, setSelectedBike] = useState<string>('');
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
+  const [compareMode, setCompareMode] = useState(false);
+  const [selectedCompare, setSelectedCompare] = useState<string[]>([]);
 
   const motorcycles: Motorcycle[] = [
     {
@@ -34,8 +46,18 @@ const Index = () => {
       price: 890000,
       category: 'Круизер',
       power: '107 л.с.',
+      powerNum: 107,
       engine: '1690 см³',
-      image: '/img/a10bc2e0-bd8c-4a47-afda-89a53027d3d4.jpg'
+      engineNum: 1690,
+      image: '/img/a10bc2e0-bd8c-4a47-afda-89a53027d3d4.jpg',
+      maxSpeed: 180,
+      acceleration: 4.2,
+      weight: 320,
+      fuelTank: 18.9,
+      consumption: 6.5,
+      torque: 155,
+      gears: 6,
+      wheelbase: 1625
     },
     {
       id: '2', 
@@ -43,8 +65,18 @@ const Index = () => {
       price: 1250000,
       category: 'Спорт',
       power: '200 л.с.',
+      powerNum: 200,
       engine: '1000 см³',
-      image: '/img/a10bc2e0-bd8c-4a47-afda-89a53027d3d4.jpg'
+      engineNum: 1000,
+      image: '/img/a10bc2e0-bd8c-4a47-afda-89a53027d3d4.jpg',
+      maxSpeed: 299,
+      acceleration: 2.9,
+      weight: 195,
+      fuelTank: 17,
+      consumption: 7.2,
+      torque: 114,
+      gears: 6,
+      wheelbase: 1440
     },
     {
       id: '3',
@@ -52,8 +84,18 @@ const Index = () => {
       price: 750000,
       category: 'Нейкед',
       power: '95 л.с.',
+      powerNum: 95,
       engine: '800 см³',
-      image: '/img/a10bc2e0-bd8c-4a47-afda-89a53027d3d4.jpg'
+      engineNum: 800,
+      image: '/img/a10bc2e0-bd8c-4a47-afda-89a53027d3d4.jpg',
+      maxSpeed: 220,
+      acceleration: 3.8,
+      weight: 210,
+      fuelTank: 16,
+      consumption: 5.8,
+      torque: 87,
+      gears: 6,
+      wheelbase: 1410
     }
   ];
 
@@ -113,6 +155,244 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Comparison Section */}
+      <section className="py-20 px-4 bg-muted/30">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-5xl font-bold mb-4 text-white">СРАВНЕНИЕ ХАРАКТЕРИСТИК</h2>
+            <p className="text-xl text-muted-foreground">Выберите до 3 мотоциклов для сравнения</p>
+          </div>
+
+          {/* Comparison Toggle */}
+          <div className="text-center mb-12">
+            <Button 
+              onClick={() => setCompareMode(!compareMode)}
+              className={`${compareMode ? 'bg-primary' : 'bg-secondary'} hover:bg-primary/90 text-white font-semibold px-8 py-3 text-lg`}
+            >
+              <Icon name="BarChart3" size={20} className="mr-2" />
+              {compareMode ? 'ОТКЛЮЧИТЬ СРАВНЕНИЕ' : 'ВКЛЮЧИТЬ СРАВНЕНИЕ'}
+            </Button>
+          </div>
+
+          {/* Comparison Grid */}
+          {compareMode && (
+            <div className="mb-16">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+                {motorcycles.map((bike) => (
+                  <Card 
+                    key={bike.id} 
+                    className={`bg-card border-border cursor-pointer transition-all duration-300 ${
+                      selectedCompare.includes(bike.id) ? 'border-primary bg-primary/10' : 'hover:border-primary/50'
+                    }`}
+                    onClick={() => {
+                      if (selectedCompare.includes(bike.id)) {
+                        setSelectedCompare(prev => prev.filter(id => id !== bike.id));
+                      } else if (selectedCompare.length < 3) {
+                        setSelectedCompare(prev => [...prev, bike.id]);
+                      }
+                    }}
+                  >
+                    <div className="relative h-32 overflow-hidden">
+                      <img src={bike.image} alt={bike.name} className="w-full h-full object-cover" />
+                      {selectedCompare.includes(bike.id) && (
+                        <div className="absolute top-2 right-2 bg-primary rounded-full p-1">
+                          <Icon name="Check" size={16} className="text-white" />
+                        </div>
+                      )}
+                    </div>
+                    <CardContent className="p-4">
+                      <h3 className="font-bold text-white text-lg mb-2">{bike.name}</h3>
+                      <p className="text-muted-foreground">{bike.category}</p>
+                      <p className="text-primary font-bold text-xl mt-2">
+                        {bike.price.toLocaleString('ru-RU')} ₽
+                      </p>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+
+              {/* Comparison Table */}
+              {selectedCompare.length > 0 && (
+                <Card className="bg-card border-border overflow-hidden">
+                  <CardHeader>
+                    <CardTitle className="text-2xl font-bold text-white flex items-center">
+                      <Icon name="BarChart3" size={24} className="mr-2 text-primary" />
+                      ДЕТАЛЬНОЕ СРАВНЕНИЕ
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="p-0">
+                    <div className="overflow-x-auto">
+                      <table className="w-full">
+                        <thead className="bg-secondary/50">
+                          <tr>
+                            <th className="text-left p-4 text-white font-semibold">Характеристика</th>
+                            {selectedCompare.map(bikeId => {
+                              const bike = motorcycles.find(m => m.id === bikeId);
+                              return (
+                                <th key={bikeId} className="text-center p-4 text-white font-semibold min-w-[200px]">
+                                  {bike?.name}
+                                </th>
+                              );
+                            })}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr className="border-b border-border">
+                            <td className="p-4 text-muted-foreground font-semibold">Категория</td>
+                            {selectedCompare.map(bikeId => {
+                              const bike = motorcycles.find(m => m.id === bikeId);
+                              return (
+                                <td key={bikeId} className="p-4 text-center text-white">
+                                  <Badge variant="secondary" className="bg-primary/20 text-primary">
+                                    {bike?.category}
+                                  </Badge>
+                                </td>
+                              );
+                            })}
+                          </tr>
+                          
+                          <tr className="border-b border-border">
+                            <td className="p-4 text-muted-foreground font-semibold">Мощность</td>
+                            {selectedCompare.map(bikeId => {
+                              const bike = motorcycles.find(m => m.id === bikeId);
+                              const maxPower = Math.max(...selectedCompare.map(id => motorcycles.find(m => m.id === id)?.powerNum || 0));
+                              const isMax = bike?.powerNum === maxPower;
+                              return (
+                                <td key={bikeId} className={`p-4 text-center font-semibold ${isMax ? 'text-primary' : 'text-white'}`}>
+                                  {bike?.power}
+                                  {isMax && <Icon name="Crown" size={16} className="inline ml-1 text-primary" />}
+                                </td>
+                              );
+                            })}
+                          </tr>
+
+                          <tr className="border-b border-border">
+                            <td className="p-4 text-muted-foreground font-semibold">Объем двигателя</td>
+                            {selectedCompare.map(bikeId => {
+                              const bike = motorcycles.find(m => m.id === bikeId);
+                              const maxEngine = Math.max(...selectedCompare.map(id => motorcycles.find(m => m.id === id)?.engineNum || 0));
+                              const isMax = bike?.engineNum === maxEngine;
+                              return (
+                                <td key={bikeId} className={`p-4 text-center font-semibold ${isMax ? 'text-primary' : 'text-white'}`}>
+                                  {bike?.engine}
+                                  {isMax && <Icon name="Crown" size={16} className="inline ml-1 text-primary" />}
+                                </td>
+                              );
+                            })}
+                          </tr>
+
+                          <tr className="border-b border-border">
+                            <td className="p-4 text-muted-foreground font-semibold">Максимальная скорость</td>
+                            {selectedCompare.map(bikeId => {
+                              const bike = motorcycles.find(m => m.id === bikeId);
+                              const maxSpeed = Math.max(...selectedCompare.map(id => motorcycles.find(m => m.id === id)?.maxSpeed || 0));
+                              const isMax = bike?.maxSpeed === maxSpeed;
+                              return (
+                                <td key={bikeId} className={`p-4 text-center font-semibold ${isMax ? 'text-primary' : 'text-white'}`}>
+                                  {bike?.maxSpeed} км/ч
+                                  {isMax && <Icon name="Crown" size={16} className="inline ml-1 text-primary" />}
+                                </td>
+                              );
+                            })}
+                          </tr>
+
+                          <tr className="border-b border-border">
+                            <td className="p-4 text-muted-foreground font-semibold">Разгон 0-100 км/ч</td>
+                            {selectedCompare.map(bikeId => {
+                              const bike = motorcycles.find(m => m.id === bikeId);
+                              const minAccel = Math.min(...selectedCompare.map(id => motorcycles.find(m => m.id === id)?.acceleration || 999));
+                              const isMin = bike?.acceleration === minAccel;
+                              return (
+                                <td key={bikeId} className={`p-4 text-center font-semibold ${isMin ? 'text-primary' : 'text-white'}`}>
+                                  {bike?.acceleration} сек
+                                  {isMin && <Icon name="Crown" size={16} className="inline ml-1 text-primary" />}
+                                </td>
+                              );
+                            })}
+                          </tr>
+
+                          <tr className="border-b border-border">
+                            <td className="p-4 text-muted-foreground font-semibold">Вес</td>
+                            {selectedCompare.map(bikeId => {
+                              const bike = motorcycles.find(m => m.id === bikeId);
+                              const minWeight = Math.min(...selectedCompare.map(id => motorcycles.find(m => m.id === id)?.weight || 999));
+                              const isMin = bike?.weight === minWeight;
+                              return (
+                                <td key={bikeId} className={`p-4 text-center font-semibold ${isMin ? 'text-primary' : 'text-white'}`}>
+                                  {bike?.weight} кг
+                                  {isMin && <Icon name="Crown" size={16} className="inline ml-1 text-primary" />}
+                                </td>
+                              );
+                            })}
+                          </tr>
+
+                          <tr className="border-b border-border">
+                            <td className="p-4 text-muted-foreground font-semibold">Объем топливного бака</td>
+                            {selectedCompare.map(bikeId => {
+                              const bike = motorcycles.find(m => m.id === bikeId);
+                              return (
+                                <td key={bikeId} className="p-4 text-center text-white font-semibold">
+                                  {bike?.fuelTank} л
+                                </td>
+                              );
+                            })}
+                          </tr>
+
+                          <tr className="border-b border-border">
+                            <td className="p-4 text-muted-foreground font-semibold">Расход топлива</td>
+                            {selectedCompare.map(bikeId => {
+                              const bike = motorcycles.find(m => m.id === bikeId);
+                              const minConsumption = Math.min(...selectedCompare.map(id => motorcycles.find(m => m.id === id)?.consumption || 999));
+                              const isMin = bike?.consumption === minConsumption;
+                              return (
+                                <td key={bikeId} className={`p-4 text-center font-semibold ${isMin ? 'text-primary' : 'text-white'}`}>
+                                  {bike?.consumption} л/100км
+                                  {isMin && <Icon name="Crown" size={16} className="inline ml-1 text-primary" />}
+                                </td>
+                              );
+                            })}
+                          </tr>
+
+                          <tr className="border-b border-border">
+                            <td className="p-4 text-muted-foreground font-semibold">Крутящий момент</td>
+                            {selectedCompare.map(bikeId => {
+                              const bike = motorcycles.find(m => m.id === bikeId);
+                              const maxTorque = Math.max(...selectedCompare.map(id => motorcycles.find(m => m.id === id)?.torque || 0));
+                              const isMax = bike?.torque === maxTorque;
+                              return (
+                                <td key={bikeId} className={`p-4 text-center font-semibold ${isMax ? 'text-primary' : 'text-white'}`}>
+                                  {bike?.torque} Нм
+                                  {isMax && <Icon name="Crown" size={16} className="inline ml-1 text-primary" />}
+                                </td>
+                              );
+                            })}
+                          </tr>
+
+                          <tr className="border-b border-border">
+                            <td className="p-4 text-muted-foreground font-semibold">Цена</td>
+                            {selectedCompare.map(bikeId => {
+                              const bike = motorcycles.find(m => m.id === bikeId);
+                              const minPrice = Math.min(...selectedCompare.map(id => motorcycles.find(m => m.id === id)?.price || 999999));
+                              const isMin = bike?.price === minPrice;
+                              return (
+                                <td key={bikeId} className={`p-4 text-center font-bold text-xl ${isMin ? 'text-primary' : 'text-white'}`}>
+                                  {bike?.price.toLocaleString('ru-RU')} ₽
+                                  {isMin && <Icon name="Crown" size={16} className="inline ml-1 text-primary" />}
+                                </td>
+                              );
+                            })}
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
+            </div>
+          )}
+        </div>
+      </section>
+
       {/* Catalog Section */}
       <section className="py-20 px-4">
         <div className="max-w-7xl mx-auto">
@@ -148,6 +428,14 @@ const Index = () => {
                     <div className="flex justify-between items-center">
                       <span className="text-muted-foreground">Объем:</span>
                       <span className="text-white font-semibold">{bike.engine}</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-muted-foreground">Макс. скорость:</span>
+                      <span className="text-white font-semibold">{bike.maxSpeed} км/ч</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-muted-foreground">Вес:</span>
+                      <span className="text-white font-semibold">{bike.weight} кг</span>
                     </div>
                     <Separator className="bg-border" />
                     <div className="flex justify-between items-center">
@@ -242,6 +530,62 @@ const Index = () => {
 
             {/* Price Summary */}
             <div className="space-y-6">
+              {/* Performance Chart */}
+              {selectedBike && (
+                <Card className="bg-card border-border">
+                  <CardHeader>
+                    <CardTitle className="text-xl text-white flex items-center">
+                      <Icon name="BarChart3" size={24} className="mr-2 text-primary" />
+                      График производительности
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    {(() => {
+                      const bike = motorcycles.find(m => m.id === selectedBike);
+                      if (!bike) return null;
+                      
+                      const maxValues = {
+                        power: Math.max(...motorcycles.map(m => m.powerNum)),
+                        speed: Math.max(...motorcycles.map(m => m.maxSpeed)),
+                        torque: Math.max(...motorcycles.map(m => m.torque)),
+                        efficiency: Math.max(...motorcycles.map(m => 10 - m.consumption))
+                      };
+                      
+                      const metrics = [
+                        { name: 'Мощность', value: bike.powerNum, max: maxValues.power, unit: 'л.с.' },
+                        { name: 'Скорость', value: bike.maxSpeed, max: maxValues.speed, unit: 'км/ч' },
+                        { name: 'Момент', value: bike.torque, max: maxValues.torque, unit: 'Нм' },
+                        { name: 'Эффективность', value: 10 - bike.consumption, max: maxValues.efficiency, unit: '/10' }
+                      ];
+                      
+                      return (
+                        <div className="space-y-4">
+                          {metrics.map((metric) => {
+                            const percentage = (metric.value / metric.max) * 100;
+                            return (
+                              <div key={metric.name} className="space-y-2">
+                                <div className="flex justify-between items-center">
+                                  <span className="text-white font-medium">{metric.name}</span>
+                                  <span className="text-primary font-bold">
+                                    {metric.value} {metric.unit}
+                                  </span>
+                                </div>
+                                <div className="w-full bg-secondary/30 rounded-full h-3">
+                                  <div 
+                                    className="bg-gradient-to-r from-primary to-orange-500 h-3 rounded-full transition-all duration-1000"
+                                    style={{ width: `${percentage}%` }}
+                                  ></div>
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      );
+                    })()}
+                  </CardContent>
+                </Card>
+              )}
+
               <Card className="bg-card border-border">
                 <CardHeader>
                   <CardTitle className="text-xl text-white flex items-center">

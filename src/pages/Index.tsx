@@ -393,6 +393,161 @@ const Index = () => {
         </div>
       </section>
 
+      {/* About Section */}
+      <section className="py-20 px-4 bg-gradient-to-b from-background to-muted/30">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-5xl font-bold mb-4 text-white">О НАШЕЙ КОМПАНИИ</h2>
+            <p className="text-xl text-muted-foreground">25 лет на дороге свободы</p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 mb-20">
+            {/* Company Story */}
+            <div className="space-y-6">
+              <div className="space-y-4">
+                <h3 className="text-3xl font-bold text-white flex items-center">
+                  <Icon name="History" size={32} className="mr-3 text-primary" />
+                  НАША ИСТОРИЯ
+                </h3>
+                <p className="text-lg text-muted-foreground leading-relaxed">
+                  В 1998 году группа байкеров-энтузиастов основала MOTOSTORE с простой целью — 
+                  сделать мотоциклы доступными для каждого, кто мечтает о свободе на двух колесах.
+                </p>
+                <p className="text-lg text-muted-foreground leading-relaxed">
+                  За четверть века мы выросли от небольшого гаража до крупнейшей сети 
+                  мотосалонов в России, сохранив при этом дух настоящего байкерского братства.
+                </p>
+              </div>
+
+              <div className="space-y-4">
+                <h3 className="text-3xl font-bold text-white flex items-center">
+                  <Icon name="Target" size={32} className="mr-3 text-primary" />
+                  НАША МИССИЯ
+                </h3>
+                <p className="text-lg text-muted-foreground leading-relaxed">
+                  Мы верим, что каждый заслуживает почувствовать адреналин и свободу, 
+                  которые дает мотоцикл. Наша миссия — помочь вам найти идеальную машину 
+                  и стать частью большой байкерской семьи.
+                </p>
+              </div>
+
+              {/* Values */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
+                <div className="p-4 bg-secondary/30 rounded-lg border border-border">
+                  <Icon name="Shield" size={24} className="text-primary mb-2" />
+                  <h4 className="font-bold text-white mb-2">КАЧЕСТВО</h4>
+                  <p className="text-muted-foreground text-sm">Только проверенные бренды и сертифицированная техника</p>
+                </div>
+                <div className="p-4 bg-secondary/30 rounded-lg border border-border">
+                  <Icon name="Users" size={24} className="text-primary mb-2" />
+                  <h4 className="font-bold text-white mb-2">СООБЩЕСТВО</h4>
+                  <p className="text-muted-foreground text-sm">Объединяем байкеров и создаем дружное комьюнити</p>
+                </div>
+                <div className="p-4 bg-secondary/30 rounded-lg border border-border">
+                  <Icon name="Wrench" size={24} className="text-primary mb-2" />
+                  <h4 className="font-bold text-white mb-2">СЕРВИС</h4>
+                  <p className="text-muted-foreground text-sm">Профессиональное обслуживание и поддержка 24/7</p>
+                </div>
+                <div className="p-4 bg-secondary/30 rounded-lg border border-border">
+                  <Icon name="Heart" size={24} className="text-primary mb-2" />
+                  <h4 className="font-bold text-white mb-2">СТРАСТЬ</h4>
+                  <p className="text-muted-foreground text-sm">Любим то, что делаем, и делимся этой страстью с вами</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Workshop Image */}
+            <div className="space-y-6">
+              <div className="relative h-96 rounded-lg overflow-hidden">
+                <img 
+                  src="/img/f87f0b5f-ca65-45ac-ac0a-119aa069dfaf.jpg" 
+                  alt="Наша мастерская"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                <div className="absolute bottom-6 left-6 text-white">
+                  <h4 className="text-2xl font-bold mb-2">НАША МАСТЕРСКАЯ</h4>
+                  <p className="text-lg">Профессиональное оборудование и опытные мастера</p>
+                </div>
+              </div>
+
+              {/* Statistics */}
+              <div className="grid grid-cols-2 gap-4">
+                <div className="text-center p-6 bg-card border border-border rounded-lg">
+                  <div className="text-4xl font-bold text-primary mb-2">15000+</div>
+                  <div className="text-white font-semibold">ДОВОЛЬНЫХ КЛИЕНТОВ</div>
+                </div>
+                <div className="text-center p-6 bg-card border border-border rounded-lg">
+                  <div className="text-4xl font-bold text-primary mb-2">25</div>
+                  <div className="text-white font-semibold">ЛЕТ НА РЫНКЕ</div>
+                </div>
+                <div className="text-center p-6 bg-card border border-border rounded-lg">
+                  <div className="text-4xl font-bold text-primary mb-2">50+</div>
+                  <div className="text-white font-semibold">МОДЕЛЕЙ В НАЛИЧИИ</div>
+                </div>
+                <div className="text-center p-6 bg-card border border-border rounded-lg">
+                  <div className="text-4xl font-bold text-primary mb-2">12</div>
+                  <div className="text-white font-semibold">ФИЛИАЛОВ ПО РОССИИ</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Team Section */}
+          <div className="text-center mb-12">
+            <h3 className="text-4xl font-bold mb-4 text-white">НАША КОМАНДА</h3>
+            <p className="text-xl text-muted-foreground">Профессионалы с байкерской душой</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+            {[
+              { name: 'АЛЕКСЕЙ ВОЛКОВ', role: 'Основатель и CEO', experience: '25 лет опыта', description: 'Байкер с 1995 года, прошел более 500,000 км' },
+              { name: 'МИХАИЛ КРЮКОВ', role: 'Главный механик', experience: '18 лет опыта', description: 'Сертифицированный мастер по ремонту мотоциклов' },
+              { name: 'ЕЛЕНА СТАЛЬНАЯ', role: 'Менеджер по продажам', experience: '12 лет опыта', description: 'Поможет подобрать идеальный мотоцикл для вас' }
+            ].map((member, index) => (
+              <Card key={index} className="bg-card border-border hover:border-primary transition-all duration-300 group">
+                <div className="relative h-64 overflow-hidden">
+                  <img 
+                    src="/img/5cdb75b6-12b0-4fa3-8e86-f4e82640f3c1.jpg" 
+                    alt={member.name}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </div>
+                <CardContent className="p-6">
+                  <h4 className="text-xl font-bold text-white mb-2">{member.name}</h4>
+                  <p className="text-primary font-semibold mb-2">{member.role}</p>
+                  <p className="text-muted-foreground text-sm mb-3">{member.experience}</p>
+                  <p className="text-muted-foreground text-sm">{member.description}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          {/* Certificates & Awards */}
+          <div className="text-center mb-12">
+            <h3 className="text-4xl font-bold mb-4 text-white">НАГРАДЫ И СЕРТИФИКАТЫ</h3>
+            <p className="text-xl text-muted-foreground">Признание нашего профессионализма</p>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {[
+              { title: 'ЛУЧШИЙ ДИЛЕР ГОДА', year: '2023', org: 'YAMAHA' },
+              { title: 'ПРЕМИЯ КАЧЕСТВА', year: '2022', org: 'HONDA' },
+              { title: 'СЕРТИФИКАТ ISO 9001', year: '2021', org: 'МЕЖДУНАРОДНЫЙ' },
+              { title: 'БАЙКЕР ГОДА', year: '2020', org: 'MOTO.RU' }
+            ].map((award, index) => (
+              <div key={index} className="text-center p-6 bg-secondary/30 rounded-lg border border-border hover:border-primary transition-all duration-300">
+                <Icon name="Award" size={48} className="text-primary mx-auto mb-3" />
+                <h4 className="font-bold text-white text-sm mb-2">{award.title}</h4>
+                <p className="text-primary font-semibold text-lg">{award.year}</p>
+                <p className="text-muted-foreground text-xs">{award.org}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Catalog Section */}
       <section className="py-20 px-4">
         <div className="max-w-7xl mx-auto">
